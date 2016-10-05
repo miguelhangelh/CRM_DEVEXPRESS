@@ -1,0 +1,518 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Actividad">
+    <Key>
+      <PropertyRef Name="idActividad" />
+    </Key>
+    <Property Name="idActividad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fechaRegistro" Type="DateTime" Precision="3" />
+    <Property Name="idCuenta" Type="Int32" />
+    <Property Name="asunto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idObjetivo" Type="Int32" />
+    <Property Name="idPrioridad" Type="Int32" />
+    <Property Name="idTipoActividad" Type="Int32" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idResponsable" Type="Int32" />
+    <Property Name="fechaInicio" Type="DateTime" Precision="3" />
+    <Property Name="fechaFinal" Type="DateTime" Precision="3" />
+    <Property Name="horaInicio" Type="Time" Precision="7" />
+    <Property Name="horaFin" Type="Time" Precision="7" />
+    <Property Name="tiempoReal" Type="Time" Precision="7" />
+    <Property Name="alerta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="resultado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsFullDay" Type="Boolean" />
+    <NavigationProperty Name="Colaborador" Relationship="Self.FK_Actividad_Colaborador" FromRole="Actividad" ToRole="Colaborador" />
+    <NavigationProperty Name="Cuenta" Relationship="Self.FK_Actividad_Cuenta" FromRole="Actividad" ToRole="Cuenta" />
+    <NavigationProperty Name="Objetivo" Relationship="Self.FK_Actividad_Objetivo" FromRole="Actividad" ToRole="Objetivo" />
+    <NavigationProperty Name="Prioridad" Relationship="Self.FK_Actividad_Prioridad" FromRole="Actividad" ToRole="Prioridad" />
+    <NavigationProperty Name="TipoActividad" Relationship="Self.FK_Actividad_TipoActividad" FromRole="Actividad" ToRole="TipoActividad" />
+  </EntityType>
+  <EntityType Name="Aplicacion">
+    <Key>
+      <PropertyRef Name="idAplicacion" />
+    </Key>
+    <Property Name="idAplicacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idModulo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Modulo" Relationship="Self.FK_Aplicacion_Modulo" FromRole="Aplicacion" ToRole="Modulo" />
+    <NavigationProperty Name="Perfil" Relationship="Self.PerfilAplicacion" FromRole="Aplicacion" ToRole="Perfil" />
+  </EntityType>
+  <EntityType Name="Cargo">
+    <Key>
+      <PropertyRef Name="idCargo" />
+    </Key>
+    <Property Name="idCargo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ciudad">
+    <Key>
+      <PropertyRef Name="idCiudad" />
+    </Key>
+    <Property Name="idCiudad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idPais" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Pais" Relationship="Self.FK_Ciudad_Pais" FromRole="Ciudad" ToRole="Pais" />
+  </EntityType>
+  <EntityType Name="Colaborador">
+    <Key>
+      <PropertyRef Name="idColaborador" />
+    </Key>
+    <Property Name="idColaborador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idCargo" Type="Int32" Nullable="false" />
+    <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nroDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="area" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_Colaborador" FromRole="Colaborador" ToRole="Actividad" />
+    <NavigationProperty Name="Cuenta" Relationship="Self.FK_Cuenta_Colaborador" FromRole="Colaborador" ToRole="Cuenta" />
+    <NavigationProperty Name="OportunidadNegocio" Relationship="Self.FK_OportunidadNegocio_Colaborador" FromRole="Colaborador" ToRole="OportunidadNegocio" />
+    <NavigationProperty Name="Colaborador1" Relationship="Self.ColaboradorACargo" FromRole="Colaborador" ToRole="Colaborador1" />
+    <NavigationProperty Name="Colaborador2" Relationship="Self.ColaboradorACargo" FromRole="Colaborador1" ToRole="Colaborador" />
+  </EntityType>
+  <EntityType Name="Contacto">
+    <Key>
+      <PropertyRef Name="idContacto" />
+    </Key>
+    <Property Name="idContacto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="estadoCivil" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idCargo" Type="Int32" Nullable="false" />
+    <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Cuenta" Relationship="Self.ContactoCuenta" FromRole="Contacto" ToRole="Cuenta" />
+  </EntityType>
+  <EntityType Name="Cuenta">
+    <Key>
+      <PropertyRef Name="idCuenta" />
+    </Key>
+    <Property Name="idCuenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tipoCuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipoDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nroDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sitioWeb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="rubro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idCiudad" Type="Int32" Nullable="false" />
+    <Property Name="idColaboradorAsignado" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_Cuenta" FromRole="Cuenta" ToRole="Actividad" />
+    <NavigationProperty Name="Colaborador" Relationship="Self.FK_Cuenta_Colaborador" FromRole="Cuenta" ToRole="Colaborador" />
+    <NavigationProperty Name="OportunidadNegocio" Relationship="Self.FK_OportunidadNegocio_Cuenta" FromRole="Cuenta" ToRole="OportunidadNegocio" />
+    <NavigationProperty Name="Contacto" Relationship="Self.ContactoCuenta" FromRole="Cuenta" ToRole="Contacto" />
+  </EntityType>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="logo" />
+      <PropertyRef Name="direccion" />
+      <PropertyRef Name="web" />
+      <PropertyRef Name="resumenEjectutivo" />
+    </Key>
+    <Property Name="nombre" Type="Int32" Nullable="false" />
+    <Property Name="logo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="web" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="resumenEjectutivo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Modulo">
+    <Key>
+      <PropertyRef Name="idModulo" />
+    </Key>
+    <Property Name="idModulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Aplicacion" Relationship="Self.FK_Aplicacion_Modulo" FromRole="Modulo" ToRole="Aplicacion" />
+  </EntityType>
+  <EntityType Name="Objetivo">
+    <Key>
+      <PropertyRef Name="idObjetivo" />
+    </Key>
+    <Property Name="idObjetivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_Objetivo" FromRole="Objetivo" ToRole="Actividad" />
+  </EntityType>
+  <EntityType Name="OportunidadNegocio">
+    <Key>
+      <PropertyRef Name="idOportunidad" />
+    </Key>
+    <Property Name="idOportunidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="necesidadCuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="presupuesto" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="TiempoTomaDecision" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="idEncargadoTomaDecision" Type="Int32" Nullable="false" />
+    <Property Name="idCuenta" Type="Int32" Nullable="false" />
+    <Property Name="idProducto" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Colaborador" Relationship="Self.FK_OportunidadNegocio_Colaborador" FromRole="OportunidadNegocio" ToRole="Colaborador" />
+    <NavigationProperty Name="Cuenta" Relationship="Self.FK_OportunidadNegocio_Cuenta" FromRole="OportunidadNegocio" ToRole="Cuenta" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK_OportunidadNegocio_Producto" FromRole="OportunidadNegocio" ToRole="Producto" />
+    <NavigationProperty Name="Propuesta" Relationship="Self.FK_Propuesta_OportunidadNegocio" FromRole="OportunidadNegocio" ToRole="Propuesta" />
+  </EntityType>
+  <EntityType Name="Pais">
+    <Key>
+      <PropertyRef Name="idPais" />
+    </Key>
+    <Property Name="idPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Ciudad" Relationship="Self.FK_Ciudad_Pais" FromRole="Pais" ToRole="Ciudad" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="idPerfil" />
+    </Key>
+    <Property Name="idPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Perfil" FromRole="Perfil" ToRole="Usuario" />
+    <NavigationProperty Name="Aplicacion" Relationship="Self.PerfilAplicacion" FromRole="Perfil" ToRole="Aplicacion" />
+  </EntityType>
+  <EntityType Name="Prioridad">
+    <Key>
+      <PropertyRef Name="idPrioridad" />
+    </Key>
+    <Property Name="idPrioridad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="imagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_Prioridad" FromRole="Prioridad" ToRole="Actividad" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idTipo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="OportunidadNegocio" Relationship="Self.FK_OportunidadNegocio_Producto" FromRole="Producto" ToRole="OportunidadNegocio" />
+    <NavigationProperty Name="TipoProducto" Relationship="Self.FK_Producto_TipoProducto1" FromRole="Producto" ToRole="TipoProducto" />
+  </EntityType>
+  <EntityType Name="Propuesta">
+    <Key>
+      <PropertyRef Name="idPropuesta" />
+    </Key>
+    <Property Name="idPropuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idOpurtunidadNegocio" Type="Int32" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="nroPropuesta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="alcancePropuesta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="incluyeCapacitacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="incluyeInstalacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="incluyeSoporte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="conFactura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tiempoImplementacion" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="CostoImplementacion" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="FormaPago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ganancia" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="OportunidadNegocio" Relationship="Self.FK_Propuesta_OportunidadNegocio" FromRole="Propuesta" ToRole="OportunidadNegocio" />
+  </EntityType>
+  <EntityType Name="TipoActividad">
+    <Key>
+      <PropertyRef Name="idTipo" />
+    </Key>
+    <Property Name="idTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="imagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_TipoActividad" FromRole="TipoActividad" ToRole="Actividad" />
+  </EntityType>
+  <EntityType Name="TipoProducto">
+    <Key>
+      <PropertyRef Name="idTipo" />
+    </Key>
+    <Property Name="idTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK_Producto_TipoProducto1" FromRole="TipoProducto" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idPerfil" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Perfil" Relationship="Self.FK_Usuario_Perfil" FromRole="Usuario" ToRole="Perfil" />
+  </EntityType>
+  <Association Name="FK_Actividad_Colaborador">
+    <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="0..1" />
+    <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Colaborador">
+        <PropertyRef Name="idColaborador" />
+      </Principal>
+      <Dependent Role="Actividad">
+        <PropertyRef Name="idResponsable" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Actividad_Cuenta">
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cuenta">
+        <PropertyRef Name="idCuenta" />
+      </Principal>
+      <Dependent Role="Actividad">
+        <PropertyRef Name="idCuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Actividad_Objetivo">
+    <End Role="Objetivo" Type="Self.Objetivo" Multiplicity="0..1" />
+    <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Objetivo">
+        <PropertyRef Name="idObjetivo" />
+      </Principal>
+      <Dependent Role="Actividad">
+        <PropertyRef Name="idObjetivo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Actividad_Prioridad">
+    <End Role="Prioridad" Type="Self.Prioridad" Multiplicity="0..1" />
+    <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prioridad">
+        <PropertyRef Name="idPrioridad" />
+      </Principal>
+      <Dependent Role="Actividad">
+        <PropertyRef Name="idPrioridad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Actividad_TipoActividad">
+    <End Role="TipoActividad" Type="Self.TipoActividad" Multiplicity="0..1" />
+    <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoActividad">
+        <PropertyRef Name="idTipo" />
+      </Principal>
+      <Dependent Role="Actividad">
+        <PropertyRef Name="idTipoActividad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Aplicacion_Modulo">
+    <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+    <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modulo">
+        <PropertyRef Name="idModulo" />
+      </Principal>
+      <Dependent Role="Aplicacion">
+        <PropertyRef Name="idModulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ciudad_Pais">
+    <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+    <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pais">
+        <PropertyRef Name="idPais" />
+      </Principal>
+      <Dependent Role="Ciudad">
+        <PropertyRef Name="idPais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cuenta_Colaborador">
+    <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="1" />
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Colaborador">
+        <PropertyRef Name="idColaborador" />
+      </Principal>
+      <Dependent Role="Cuenta">
+        <PropertyRef Name="idColaboradorAsignado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OportunidadNegocio_Colaborador">
+    <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="1" />
+    <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Colaborador">
+        <PropertyRef Name="idColaborador" />
+      </Principal>
+      <Dependent Role="OportunidadNegocio">
+        <PropertyRef Name="idEncargadoTomaDecision" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OportunidadNegocio_Cuenta">
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cuenta">
+        <PropertyRef Name="idCuenta" />
+      </Principal>
+      <Dependent Role="OportunidadNegocio">
+        <PropertyRef Name="idCuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OportunidadNegocio_Producto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="OportunidadNegocio">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Propuesta_OportunidadNegocio">
+    <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="1" />
+    <End Role="Propuesta" Type="Self.Propuesta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OportunidadNegocio">
+        <PropertyRef Name="idOportunidad" />
+      </Principal>
+      <Dependent Role="Propuesta">
+        <PropertyRef Name="idOpurtunidadNegocio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_Perfil">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="idPerfil" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="idPerfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producto_TipoProducto1">
+    <End Role="TipoProducto" Type="Self.TipoProducto" Multiplicity="1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoProducto">
+        <PropertyRef Name="idTipo" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="idTipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ColaboradorACargo">
+    <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="*" />
+    <End Role="Colaborador1" Type="Self.Colaborador" Multiplicity="*" />
+  </Association>
+  <Association Name="ContactoCuenta">
+    <End Role="Contacto" Type="Self.Contacto" Multiplicity="*" />
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+  </Association>
+  <Association Name="PerfilAplicacion">
+    <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="*" />
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="CRMEntities3" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Actividad" EntityType="Self.Actividad" />
+    <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" />
+    <EntitySet Name="Cargo" EntityType="Self.Cargo" />
+    <EntitySet Name="Ciudad" EntityType="Self.Ciudad" />
+    <EntitySet Name="Colaborador" EntityType="Self.Colaborador" />
+    <EntitySet Name="Contacto" EntityType="Self.Contacto" />
+    <EntitySet Name="Cuenta" EntityType="Self.Cuenta" />
+    <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+    <EntitySet Name="Modulo" EntityType="Self.Modulo" />
+    <EntitySet Name="Objetivo" EntityType="Self.Objetivo" />
+    <EntitySet Name="OportunidadNegocio" EntityType="Self.OportunidadNegocio" />
+    <EntitySet Name="Pais" EntityType="Self.Pais" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" />
+    <EntitySet Name="Prioridad" EntityType="Self.Prioridad" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" />
+    <EntitySet Name="Propuesta" EntityType="Self.Propuesta" />
+    <EntitySet Name="TipoActividad" EntityType="Self.TipoActividad" />
+    <EntitySet Name="TipoProducto" EntityType="Self.TipoProducto" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK_Actividad_Colaborador" Association="Self.FK_Actividad_Colaborador">
+      <End Role="Colaborador" EntitySet="Colaborador" />
+      <End Role="Actividad" EntitySet="Actividad" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Actividad_Cuenta" Association="Self.FK_Actividad_Cuenta">
+      <End Role="Cuenta" EntitySet="Cuenta" />
+      <End Role="Actividad" EntitySet="Actividad" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Actividad_Objetivo" Association="Self.FK_Actividad_Objetivo">
+      <End Role="Objetivo" EntitySet="Objetivo" />
+      <End Role="Actividad" EntitySet="Actividad" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Actividad_Prioridad" Association="Self.FK_Actividad_Prioridad">
+      <End Role="Prioridad" EntitySet="Prioridad" />
+      <End Role="Actividad" EntitySet="Actividad" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Actividad_TipoActividad" Association="Self.FK_Actividad_TipoActividad">
+      <End Role="TipoActividad" EntitySet="TipoActividad" />
+      <End Role="Actividad" EntitySet="Actividad" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Aplicacion_Modulo" Association="Self.FK_Aplicacion_Modulo">
+      <End Role="Modulo" EntitySet="Modulo" />
+      <End Role="Aplicacion" EntitySet="Aplicacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ciudad_Pais" Association="Self.FK_Ciudad_Pais">
+      <End Role="Pais" EntitySet="Pais" />
+      <End Role="Ciudad" EntitySet="Ciudad" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cuenta_Colaborador" Association="Self.FK_Cuenta_Colaborador">
+      <End Role="Colaborador" EntitySet="Colaborador" />
+      <End Role="Cuenta" EntitySet="Cuenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OportunidadNegocio_Colaborador" Association="Self.FK_OportunidadNegocio_Colaborador">
+      <End Role="Colaborador" EntitySet="Colaborador" />
+      <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OportunidadNegocio_Cuenta" Association="Self.FK_OportunidadNegocio_Cuenta">
+      <End Role="Cuenta" EntitySet="Cuenta" />
+      <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OportunidadNegocio_Producto" Association="Self.FK_OportunidadNegocio_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Propuesta_OportunidadNegocio" Association="Self.FK_Propuesta_OportunidadNegocio">
+      <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+      <End Role="Propuesta" EntitySet="Propuesta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Perfil" Association="Self.FK_Usuario_Perfil">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producto_TipoProducto1" Association="Self.FK_Producto_TipoProducto1">
+      <End Role="TipoProducto" EntitySet="TipoProducto" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="ColaboradorACargo" Association="Self.ColaboradorACargo">
+      <End Role="Colaborador" EntitySet="Colaborador" />
+      <End Role="Colaborador1" EntitySet="Colaborador" />
+    </AssociationSet>
+    <AssociationSet Name="ContactoCuenta" Association="Self.ContactoCuenta">
+      <End Role="Contacto" EntitySet="Contacto" />
+      <End Role="Cuenta" EntitySet="Cuenta" />
+    </AssociationSet>
+    <AssociationSet Name="PerfilAplicacion" Association="Self.PerfilAplicacion">
+      <End Role="Aplicacion" EntitySet="Aplicacion" />
+      <End Role="Perfil" EntitySet="Perfil" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

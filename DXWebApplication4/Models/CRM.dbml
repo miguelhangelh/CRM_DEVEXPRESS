@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CRM" Class="CRMDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="ConnectionString" ConnectionString="Data Source=MIGUEL\MIGUEL;Initial Catalog=CRM;Persist Security Info=True;User ID=proyecto;Password=proyecto" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Ciudad" Member="Ciudad">
+    <Type Name="Ciudad">
+      <Column Name="idCiudad" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="idPais" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Ciudad_Cuenta" Member="Cuenta" ThisKey="idCiudad" OtherKey="idCiudad" Type="Cuenta" />
+      <Association Name="Pais_Ciudad" Member="Pais" ThisKey="idPais" OtherKey="idPais" Type="Pais" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Pais" Member="Pais">
+    <Type Name="Pais">
+      <Column Name="idPais" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Pais_Ciudad" Member="Ciudad" ThisKey="idPais" OtherKey="idPais" Type="Ciudad" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contacto" Member="Contacto">
+    <Type Name="Contacto">
+      <Column Name="idContacto" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="apellidos" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="fechaNacimiento" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="estadoCivil" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="idCargo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="telefono" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="correo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Contacto_ContactoCuenta" Member="ContactoCuenta" ThisKey="idContacto" OtherKey="idContacto" Type="ContactoCuenta" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cuenta" Member="Cuenta">
+    <Type Name="Cuenta">
+      <Column Name="idCuenta" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tipoCuenta" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="tipoDocumento" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="nroDocumento" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="telefono" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="sitioWeb" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="rubro" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="idCiudad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idColaboradorAsignado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="estado" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Cuenta_ContactoCuenta" Member="ContactoCuenta" ThisKey="idCuenta" OtherKey="idCuenta" Type="ContactoCuenta" />
+      <Association Name="Ciudad_Cuenta" Member="Ciudad" ThisKey="idCiudad" OtherKey="idCiudad" Type="Ciudad" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContactoCuenta" Member="ContactoCuenta">
+    <Type Name="ContactoCuenta">
+      <Column Name="idCuenta" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idContacto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Contacto_ContactoCuenta" Member="Contacto" ThisKey="idContacto" OtherKey="idContacto" Type="Contacto" IsForeignKey="true" />
+      <Association Name="Cuenta_ContactoCuenta" Member="Cuenta" ThisKey="idCuenta" OtherKey="idCuenta" Type="Cuenta" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+</Database>

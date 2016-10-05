@@ -1,0 +1,28 @@
+﻿@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "detailGrid_" + ViewData["idPais"];
+        settings.SettingsDetail.MasterGridName = "grid";
+        settings.CallbackRouteValues = new { Controller = "Paises", Action = "MasterDetailDetailPartial", idPais = ViewData["idPais"] };
+        settings.Width = Unit.Percentage(100);
+
+        settings.KeyFieldName = "idCiudad";
+        settings.Columns.Add("nombre","Ciudades");
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Paises", Action = "Create", idPais = ViewData["idPais"] };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Paises", Action = "Delete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Settings.ShowFilterRow = false;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterBar = GridViewStatusBarMode.Visible;
+        settings.Settings.ShowFooter = false;
+        settings.SettingsSearchPanel.Visible = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+    }).Bind(Model).GetHtml()
+

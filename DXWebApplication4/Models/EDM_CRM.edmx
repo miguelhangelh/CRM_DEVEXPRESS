@@ -1,0 +1,1407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Actividad">
+          <Key>
+            <PropertyRef Name="idActividad" />
+          </Key>
+          <Property Name="idActividad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaRegistro" Type="datetime" />
+          <Property Name="idCuenta" Type="int" />
+          <Property Name="asunto" Type="varchar" MaxLength="50" />
+          <Property Name="idObjetivo" Type="int" />
+          <Property Name="idPrioridad" Type="int" />
+          <Property Name="idTipoActividad" Type="int" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="idResponsable" Type="int" />
+          <Property Name="fechaInicio" Type="datetime" />
+          <Property Name="fechaFinal" Type="datetime" />
+          <Property Name="horaInicio" Type="time" Precision="7" />
+          <Property Name="horaFin" Type="time" Precision="7" />
+          <Property Name="tiempoReal" Type="time" Precision="7" />
+          <Property Name="alerta" Type="varchar" MaxLength="50" />
+          <Property Name="estado" Type="varchar" MaxLength="50" />
+          <Property Name="resultado" Type="varchar" MaxLength="50" />
+          <Property Name="direccion" Type="varchar" MaxLength="50" />
+          <Property Name="IsFullDay" Type="bit" />
+        </EntityType>
+        <EntityType Name="Aplicacion">
+          <Key>
+            <PropertyRef Name="idAplicacion" />
+          </Key>
+          <Property Name="idAplicacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idModulo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="idCargo" />
+          </Key>
+          <Property Name="idCargo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="idCiudad" />
+          </Key>
+          <Property Name="idCiudad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idPais" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Colaborador">
+          <Key>
+            <PropertyRef Name="idColaborador" />
+          </Key>
+          <Property Name="idColaborador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idCargo" Type="int" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="date" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nroDocumento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="area" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CRM.dbo.ColaboradorACargo' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ColaboradorACargo">
+          <Key>
+            <PropertyRef Name="idColaborador" />
+            <PropertyRef Name="idColaboradorAsignado" />
+          </Key>
+          <Property Name="idColaborador" Type="int" Nullable="false" />
+          <Property Name="idColaboradorAsignado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contacto">
+          <Key>
+            <PropertyRef Name="idContacto" />
+          </Key>
+          <Property Name="idContacto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="date" Nullable="false" />
+          <Property Name="estadoCivil" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idCargo" Type="int" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CRM.dbo.ContactoCuenta' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ContactoCuenta">
+          <Key>
+            <PropertyRef Name="idCuenta" />
+            <PropertyRef Name="idContacto" />
+          </Key>
+          <Property Name="idCuenta" Type="int" Nullable="false" />
+          <Property Name="idContacto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="idCuenta" />
+          </Key>
+          <Property Name="idCuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoCuenta" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tipoDocumento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nroDocumento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sitioWeb" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="rubro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idCiudad" Type="int" Nullable="false" />
+          <Property Name="idColaboradorAsignado" Type="int" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="logo" />
+            <PropertyRef Name="direccion" />
+            <PropertyRef Name="web" />
+            <PropertyRef Name="resumenEjectutivo" />
+          </Key>
+          <Property Name="nombre" Type="int" Nullable="false" />
+          <Property Name="logo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="web" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="resumenEjectutivo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modulo">
+          <Key>
+            <PropertyRef Name="idModulo" />
+          </Key>
+          <Property Name="idModulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Objetivo">
+          <Key>
+            <PropertyRef Name="idObjetivo" />
+          </Key>
+          <Property Name="idObjetivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OportunidadNegocio">
+          <Key>
+            <PropertyRef Name="idOportunidad" />
+          </Key>
+          <Property Name="idOportunidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="necesidadCuenta" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="presupuesto" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TiempoTomaDecision" Type="time" Precision="7" Nullable="false" />
+          <Property Name="idEncargadoTomaDecision" Type="int" Nullable="false" />
+          <Property Name="idCuenta" Type="int" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="idPais" />
+          </Key>
+          <Property Name="idPais" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CRM.dbo.PerfilAplicacion' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="PerfilAplicacion">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+            <PropertyRef Name="idAplicacion" />
+          </Key>
+          <Property Name="idPerfil" Type="int" Nullable="false" />
+          <Property Name="idAplicacion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Prioridad">
+          <Key>
+            <PropertyRef Name="idPrioridad" />
+          </Key>
+          <Property Name="idPrioridad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="imagen" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idTipo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Propuesta">
+          <Key>
+            <PropertyRef Name="idPropuesta" />
+          </Key>
+          <Property Name="idPropuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idOpurtunidadNegocio" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="nroPropuesta" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="alcancePropuesta" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="incluyeCapacitacion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="incluyeInstalacion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="incluyeSoporte" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="conFactura" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tiempoImplementacion" Type="time" Precision="7" Nullable="false" />
+          <Property Name="CostoImplementacion" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="FormaPago" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ganancia" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoActividad">
+          <Key>
+            <PropertyRef Name="idTipo" />
+          </Key>
+          <Property Name="idTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="imagen" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoProducto">
+          <Key>
+            <PropertyRef Name="idTipo" />
+          </Key>
+          <Property Name="idTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="contraseña" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idPerfil" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Actividad_Colaborador">
+          <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="0..1" />
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colaborador">
+              <PropertyRef Name="idColaborador" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="idResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividad_Cuenta">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="idCuenta" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="idCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividad_Objetivo">
+          <End Role="Objetivo" Type="Self.Objetivo" Multiplicity="0..1" />
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Objetivo">
+              <PropertyRef Name="idObjetivo" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="idObjetivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividad_Prioridad">
+          <End Role="Prioridad" Type="Self.Prioridad" Multiplicity="0..1" />
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prioridad">
+              <PropertyRef Name="idPrioridad" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="idPrioridad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividad_TipoActividad">
+          <End Role="TipoActividad" Type="Self.TipoActividad" Multiplicity="0..1" />
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoActividad">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="idTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aplicacion_Modulo">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="idModulo" />
+            </Principal>
+            <Dependent Role="Aplicacion">
+              <PropertyRef Name="idModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ciudad_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="idPais" />
+            </Principal>
+            <Dependent Role="Ciudad">
+              <PropertyRef Name="idPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ColaboradorACargo_Colaborador2">
+          <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="1" />
+          <End Role="ColaboradorACargo" Type="Self.ColaboradorACargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colaborador">
+              <PropertyRef Name="idColaborador" />
+            </Principal>
+            <Dependent Role="ColaboradorACargo">
+              <PropertyRef Name="idColaborador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ColaboradorACargo_Colaborador3">
+          <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="1" />
+          <End Role="ColaboradorACargo" Type="Self.ColaboradorACargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colaborador">
+              <PropertyRef Name="idColaborador" />
+            </Principal>
+            <Dependent Role="ColaboradorACargo">
+              <PropertyRef Name="idColaboradorAsignado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactoCuenta_Contacto">
+          <End Role="Contacto" Type="Self.Contacto" Multiplicity="1" />
+          <End Role="ContactoCuenta" Type="Self.ContactoCuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacto">
+              <PropertyRef Name="idContacto" />
+            </Principal>
+            <Dependent Role="ContactoCuenta">
+              <PropertyRef Name="idContacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactoCuenta_Cuenta">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ContactoCuenta" Type="Self.ContactoCuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="idCuenta" />
+            </Principal>
+            <Dependent Role="ContactoCuenta">
+              <PropertyRef Name="idCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cuenta_Colaborador">
+          <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colaborador">
+              <PropertyRef Name="idColaborador" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="idColaboradorAsignado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OportunidadNegocio_Colaborador">
+          <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="1" />
+          <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colaborador">
+              <PropertyRef Name="idColaborador" />
+            </Principal>
+            <Dependent Role="OportunidadNegocio">
+              <PropertyRef Name="idEncargadoTomaDecision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OportunidadNegocio_Cuenta">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="idCuenta" />
+            </Principal>
+            <Dependent Role="OportunidadNegocio">
+              <PropertyRef Name="idCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OportunidadNegocio_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="OportunidadNegocio">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PerfilAplicacion_Aplicacion">
+          <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="1" />
+          <End Role="PerfilAplicacion" Type="Self.PerfilAplicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicacion">
+              <PropertyRef Name="idAplicacion" />
+            </Principal>
+            <Dependent Role="PerfilAplicacion">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PerfilAplicacion_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="PerfilAplicacion" Type="Self.PerfilAplicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="idPerfil" />
+            </Principal>
+            <Dependent Role="PerfilAplicacion">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_TipoProducto1">
+          <End Role="TipoProducto" Type="Self.TipoProducto" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoProducto">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Propuesta_OportunidadNegocio">
+          <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="1" />
+          <End Role="Propuesta" Type="Self.Propuesta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OportunidadNegocio">
+              <PropertyRef Name="idOportunidad" />
+            </Principal>
+            <Dependent Role="Propuesta">
+              <PropertyRef Name="idOpurtunidadNegocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="idPerfil" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CRMModelStoreContainer">
+          <EntitySet Name="Actividad" EntityType="Self.Actividad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ciudad" EntityType="Self.Ciudad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Colaborador" EntityType="Self.Colaborador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contacto" EntityType="Self.Contacto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cuenta" EntityType="Self.Cuenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modulo" EntityType="Self.Modulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Objetivo" EntityType="Self.Objetivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OportunidadNegocio" EntityType="Self.OportunidadNegocio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prioridad" EntityType="Self.Prioridad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Propuesta" EntityType="Self.Propuesta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoActividad" EntityType="Self.TipoActividad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoProducto" EntityType="Self.TipoProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ColaboradorACargo" EntityType="Self.ColaboradorACargo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ColaboradorACargo].[idColaborador] AS [idColaborador], 
+    [ColaboradorACargo].[idColaboradorAsignado] AS [idColaboradorAsignado]
+    FROM [dbo].[ColaboradorACargo] AS [ColaboradorACargo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ContactoCuenta" EntityType="Self.ContactoCuenta" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ContactoCuenta].[idCuenta] AS [idCuenta], 
+    [ContactoCuenta].[idContacto] AS [idContacto]
+    FROM [dbo].[ContactoCuenta] AS [ContactoCuenta]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PerfilAplicacion" EntityType="Self.PerfilAplicacion" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PerfilAplicacion].[idPerfil] AS [idPerfil], 
+    [PerfilAplicacion].[idAplicacion] AS [idAplicacion]
+    FROM [dbo].[PerfilAplicacion] AS [PerfilAplicacion]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Actividad_Colaborador" Association="Self.FK_Actividad_Colaborador">
+            <End Role="Colaborador" EntitySet="Colaborador" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividad_Cuenta" Association="Self.FK_Actividad_Cuenta">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividad_Objetivo" Association="Self.FK_Actividad_Objetivo">
+            <End Role="Objetivo" EntitySet="Objetivo" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividad_Prioridad" Association="Self.FK_Actividad_Prioridad">
+            <End Role="Prioridad" EntitySet="Prioridad" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividad_TipoActividad" Association="Self.FK_Actividad_TipoActividad">
+            <End Role="TipoActividad" EntitySet="TipoActividad" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aplicacion_Modulo" Association="Self.FK_Aplicacion_Modulo">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ciudad_Pais" Association="Self.FK_Ciudad_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Ciudad" EntitySet="Ciudad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ColaboradorACargo_Colaborador2" Association="Self.FK_ColaboradorACargo_Colaborador2">
+            <End Role="Colaborador" EntitySet="Colaborador" />
+            <End Role="ColaboradorACargo" EntitySet="ColaboradorACargo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ColaboradorACargo_Colaborador3" Association="Self.FK_ColaboradorACargo_Colaborador3">
+            <End Role="Colaborador" EntitySet="Colaborador" />
+            <End Role="ColaboradorACargo" EntitySet="ColaboradorACargo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactoCuenta_Contacto" Association="Self.FK_ContactoCuenta_Contacto">
+            <End Role="Contacto" EntitySet="Contacto" />
+            <End Role="ContactoCuenta" EntitySet="ContactoCuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactoCuenta_Cuenta" Association="Self.FK_ContactoCuenta_Cuenta">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="ContactoCuenta" EntitySet="ContactoCuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cuenta_Colaborador" Association="Self.FK_Cuenta_Colaborador">
+            <End Role="Colaborador" EntitySet="Colaborador" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OportunidadNegocio_Colaborador" Association="Self.FK_OportunidadNegocio_Colaborador">
+            <End Role="Colaborador" EntitySet="Colaborador" />
+            <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OportunidadNegocio_Cuenta" Association="Self.FK_OportunidadNegocio_Cuenta">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OportunidadNegocio_Producto" Association="Self.FK_OportunidadNegocio_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerfilAplicacion_Aplicacion" Association="Self.FK_PerfilAplicacion_Aplicacion">
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+            <End Role="PerfilAplicacion" EntitySet="PerfilAplicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerfilAplicacion_Perfil" Association="Self.FK_PerfilAplicacion_Perfil">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="PerfilAplicacion" EntitySet="PerfilAplicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_TipoProducto1" Association="Self.FK_Producto_TipoProducto1">
+            <End Role="TipoProducto" EntitySet="TipoProducto" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Propuesta_OportunidadNegocio" Association="Self.FK_Propuesta_OportunidadNegocio">
+            <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+            <End Role="Propuesta" EntitySet="Propuesta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Perfil" Association="Self.FK_Usuario_Perfil">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Actividad">
+          <Key>
+            <PropertyRef Name="idActividad" />
+          </Key>
+          <Property Name="idActividad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaRegistro" Type="DateTime" Precision="3" />
+          <Property Name="idCuenta" Type="Int32" />
+          <Property Name="asunto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idObjetivo" Type="Int32" />
+          <Property Name="idPrioridad" Type="Int32" />
+          <Property Name="idTipoActividad" Type="Int32" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idResponsable" Type="Int32" />
+          <Property Name="fechaInicio" Type="DateTime" Precision="3" />
+          <Property Name="fechaFinal" Type="DateTime" Precision="3" />
+          <Property Name="horaInicio" Type="Time" Precision="7" />
+          <Property Name="horaFin" Type="Time" Precision="7" />
+          <Property Name="tiempoReal" Type="Time" Precision="7" />
+          <Property Name="alerta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="resultado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsFullDay" Type="Boolean" />
+          <NavigationProperty Name="Colaborador" Relationship="Self.FK_Actividad_Colaborador" FromRole="Actividad" ToRole="Colaborador" />
+          <NavigationProperty Name="Cuenta" Relationship="Self.FK_Actividad_Cuenta" FromRole="Actividad" ToRole="Cuenta" />
+          <NavigationProperty Name="Objetivo" Relationship="Self.FK_Actividad_Objetivo" FromRole="Actividad" ToRole="Objetivo" />
+          <NavigationProperty Name="Prioridad" Relationship="Self.FK_Actividad_Prioridad" FromRole="Actividad" ToRole="Prioridad" />
+          <NavigationProperty Name="TipoActividad" Relationship="Self.FK_Actividad_TipoActividad" FromRole="Actividad" ToRole="TipoActividad" />
+        </EntityType>
+        <EntityType Name="Aplicacion">
+          <Key>
+            <PropertyRef Name="idAplicacion" />
+          </Key>
+          <Property Name="idAplicacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idModulo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Modulo" Relationship="Self.FK_Aplicacion_Modulo" FromRole="Aplicacion" ToRole="Modulo" />
+          <NavigationProperty Name="Perfil" Relationship="Self.PerfilAplicacion" FromRole="Aplicacion" ToRole="Perfil" />
+        </EntityType>
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="idCargo" />
+          </Key>
+          <Property Name="idCargo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="idCiudad" />
+          </Key>
+          <Property Name="idCiudad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idPais" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pais" Relationship="Self.FK_Ciudad_Pais" FromRole="Ciudad" ToRole="Pais" />
+        </EntityType>
+        <EntityType Name="Colaborador">
+          <Key>
+            <PropertyRef Name="idColaborador" />
+          </Key>
+          <Property Name="idColaborador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCargo" Type="Int32" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nroDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="area" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_Colaborador" FromRole="Colaborador" ToRole="Actividad" />
+          <NavigationProperty Name="Cuenta" Relationship="Self.FK_Cuenta_Colaborador" FromRole="Colaborador" ToRole="Cuenta" />
+          <NavigationProperty Name="OportunidadNegocio" Relationship="Self.FK_OportunidadNegocio_Colaborador" FromRole="Colaborador" ToRole="OportunidadNegocio" />
+          <NavigationProperty Name="Colaborador1" Relationship="Self.ColaboradorACargo" FromRole="Colaborador" ToRole="Colaborador1" />
+          <NavigationProperty Name="Colaborador2" Relationship="Self.ColaboradorACargo" FromRole="Colaborador1" ToRole="Colaborador" />
+        </EntityType>
+        <EntityType Name="Contacto">
+          <Key>
+            <PropertyRef Name="idContacto" />
+          </Key>
+          <Property Name="idContacto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="estadoCivil" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCargo" Type="Int32" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cuenta" Relationship="Self.ContactoCuenta" FromRole="Contacto" ToRole="Cuenta" />
+        </EntityType>
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="idCuenta" />
+          </Key>
+          <Property Name="idCuenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoCuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipoDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nroDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sitioWeb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rubro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCiudad" Type="Int32" Nullable="false" />
+          <Property Name="idColaboradorAsignado" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_Cuenta" FromRole="Cuenta" ToRole="Actividad" />
+          <NavigationProperty Name="Colaborador" Relationship="Self.FK_Cuenta_Colaborador" FromRole="Cuenta" ToRole="Colaborador" />
+          <NavigationProperty Name="OportunidadNegocio" Relationship="Self.FK_OportunidadNegocio_Cuenta" FromRole="Cuenta" ToRole="OportunidadNegocio" />
+          <NavigationProperty Name="Contacto" Relationship="Self.ContactoCuenta" FromRole="Cuenta" ToRole="Contacto" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="logo" />
+            <PropertyRef Name="direccion" />
+            <PropertyRef Name="web" />
+            <PropertyRef Name="resumenEjectutivo" />
+          </Key>
+          <Property Name="nombre" Type="Int32" Nullable="false" />
+          <Property Name="logo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="web" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="resumenEjectutivo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modulo">
+          <Key>
+            <PropertyRef Name="idModulo" />
+          </Key>
+          <Property Name="idModulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Aplicacion" Relationship="Self.FK_Aplicacion_Modulo" FromRole="Modulo" ToRole="Aplicacion" />
+        </EntityType>
+        <EntityType Name="Objetivo">
+          <Key>
+            <PropertyRef Name="idObjetivo" />
+          </Key>
+          <Property Name="idObjetivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_Objetivo" FromRole="Objetivo" ToRole="Actividad" />
+        </EntityType>
+        <EntityType Name="OportunidadNegocio">
+          <Key>
+            <PropertyRef Name="idOportunidad" />
+          </Key>
+          <Property Name="idOportunidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="necesidadCuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="presupuesto" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TiempoTomaDecision" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="idEncargadoTomaDecision" Type="Int32" Nullable="false" />
+          <Property Name="idCuenta" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Colaborador" Relationship="Self.FK_OportunidadNegocio_Colaborador" FromRole="OportunidadNegocio" ToRole="Colaborador" />
+          <NavigationProperty Name="Cuenta" Relationship="Self.FK_OportunidadNegocio_Cuenta" FromRole="OportunidadNegocio" ToRole="Cuenta" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_OportunidadNegocio_Producto" FromRole="OportunidadNegocio" ToRole="Producto" />
+          <NavigationProperty Name="Propuesta" Relationship="Self.FK_Propuesta_OportunidadNegocio" FromRole="OportunidadNegocio" ToRole="Propuesta" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="idPais" />
+          </Key>
+          <Property Name="idPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Ciudad" Relationship="Self.FK_Ciudad_Pais" FromRole="Pais" ToRole="Ciudad" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Perfil" FromRole="Perfil" ToRole="Usuario" />
+          <NavigationProperty Name="Aplicacion" Relationship="Self.PerfilAplicacion" FromRole="Perfil" ToRole="Aplicacion" />
+        </EntityType>
+        <EntityType Name="Prioridad">
+          <Key>
+            <PropertyRef Name="idPrioridad" />
+          </Key>
+          <Property Name="idPrioridad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="imagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_Prioridad" FromRole="Prioridad" ToRole="Actividad" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idTipo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OportunidadNegocio" Relationship="Self.FK_OportunidadNegocio_Producto" FromRole="Producto" ToRole="OportunidadNegocio" />
+          <NavigationProperty Name="TipoProducto" Relationship="Self.FK_Producto_TipoProducto1" FromRole="Producto" ToRole="TipoProducto" />
+        </EntityType>
+        <EntityType Name="Propuesta">
+          <Key>
+            <PropertyRef Name="idPropuesta" />
+          </Key>
+          <Property Name="idPropuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idOpurtunidadNegocio" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="nroPropuesta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="alcancePropuesta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="incluyeCapacitacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="incluyeInstalacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="incluyeSoporte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="conFactura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tiempoImplementacion" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="CostoImplementacion" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="FormaPago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ganancia" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="OportunidadNegocio" Relationship="Self.FK_Propuesta_OportunidadNegocio" FromRole="Propuesta" ToRole="OportunidadNegocio" />
+        </EntityType>
+        <EntityType Name="TipoActividad">
+          <Key>
+            <PropertyRef Name="idTipo" />
+          </Key>
+          <Property Name="idTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="imagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_TipoActividad" FromRole="TipoActividad" ToRole="Actividad" />
+        </EntityType>
+        <EntityType Name="TipoProducto">
+          <Key>
+            <PropertyRef Name="idTipo" />
+          </Key>
+          <Property Name="idTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_Producto_TipoProducto1" FromRole="TipoProducto" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idPerfil" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Perfil" Relationship="Self.FK_Usuario_Perfil" FromRole="Usuario" ToRole="Perfil" />
+        </EntityType>
+        <Association Name="FK_Actividad_Colaborador">
+          <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="0..1" />
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colaborador">
+              <PropertyRef Name="idColaborador" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="idResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividad_Cuenta">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="idCuenta" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="idCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividad_Objetivo">
+          <End Role="Objetivo" Type="Self.Objetivo" Multiplicity="0..1" />
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Objetivo">
+              <PropertyRef Name="idObjetivo" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="idObjetivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividad_Prioridad">
+          <End Role="Prioridad" Type="Self.Prioridad" Multiplicity="0..1" />
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prioridad">
+              <PropertyRef Name="idPrioridad" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="idPrioridad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividad_TipoActividad">
+          <End Role="TipoActividad" Type="Self.TipoActividad" Multiplicity="0..1" />
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoActividad">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="idTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aplicacion_Modulo">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="idModulo" />
+            </Principal>
+            <Dependent Role="Aplicacion">
+              <PropertyRef Name="idModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ciudad_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="idPais" />
+            </Principal>
+            <Dependent Role="Ciudad">
+              <PropertyRef Name="idPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cuenta_Colaborador">
+          <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colaborador">
+              <PropertyRef Name="idColaborador" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="idColaboradorAsignado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OportunidadNegocio_Colaborador">
+          <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="1" />
+          <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colaborador">
+              <PropertyRef Name="idColaborador" />
+            </Principal>
+            <Dependent Role="OportunidadNegocio">
+              <PropertyRef Name="idEncargadoTomaDecision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OportunidadNegocio_Cuenta">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="idCuenta" />
+            </Principal>
+            <Dependent Role="OportunidadNegocio">
+              <PropertyRef Name="idCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OportunidadNegocio_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="OportunidadNegocio">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Propuesta_OportunidadNegocio">
+          <End Role="OportunidadNegocio" Type="Self.OportunidadNegocio" Multiplicity="1" />
+          <End Role="Propuesta" Type="Self.Propuesta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OportunidadNegocio">
+              <PropertyRef Name="idOportunidad" />
+            </Principal>
+            <Dependent Role="Propuesta">
+              <PropertyRef Name="idOpurtunidadNegocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Perfil">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="idPerfil" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_TipoProducto1">
+          <End Role="TipoProducto" Type="Self.TipoProducto" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoProducto">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ColaboradorACargo">
+          <End Role="Colaborador" Type="Self.Colaborador" Multiplicity="*" />
+          <End Role="Colaborador1" Type="Self.Colaborador" Multiplicity="*" />
+        </Association>
+        <Association Name="ContactoCuenta">
+          <End Role="Contacto" Type="Self.Contacto" Multiplicity="*" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+        </Association>
+        <Association Name="PerfilAplicacion">
+          <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="*" />
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="CRMEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actividad" EntityType="Self.Actividad" />
+          <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" />
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" />
+          <EntitySet Name="Ciudad" EntityType="Self.Ciudad" />
+          <EntitySet Name="Colaborador" EntityType="Self.Colaborador" />
+          <EntitySet Name="Contacto" EntityType="Self.Contacto" />
+          <EntitySet Name="Cuenta" EntityType="Self.Cuenta" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+          <EntitySet Name="Modulo" EntityType="Self.Modulo" />
+          <EntitySet Name="Objetivo" EntityType="Self.Objetivo" />
+          <EntitySet Name="OportunidadNegocio" EntityType="Self.OportunidadNegocio" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" />
+          <EntitySet Name="Perfil" EntityType="Self.Perfil" />
+          <EntitySet Name="Prioridad" EntityType="Self.Prioridad" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Propuesta" EntityType="Self.Propuesta" />
+          <EntitySet Name="TipoActividad" EntityType="Self.TipoActividad" />
+          <EntitySet Name="TipoProducto" EntityType="Self.TipoProducto" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Actividad_Colaborador" Association="Self.FK_Actividad_Colaborador">
+            <End Role="Colaborador" EntitySet="Colaborador" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividad_Cuenta" Association="Self.FK_Actividad_Cuenta">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividad_Objetivo" Association="Self.FK_Actividad_Objetivo">
+            <End Role="Objetivo" EntitySet="Objetivo" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividad_Prioridad" Association="Self.FK_Actividad_Prioridad">
+            <End Role="Prioridad" EntitySet="Prioridad" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividad_TipoActividad" Association="Self.FK_Actividad_TipoActividad">
+            <End Role="TipoActividad" EntitySet="TipoActividad" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aplicacion_Modulo" Association="Self.FK_Aplicacion_Modulo">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ciudad_Pais" Association="Self.FK_Ciudad_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Ciudad" EntitySet="Ciudad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cuenta_Colaborador" Association="Self.FK_Cuenta_Colaborador">
+            <End Role="Colaborador" EntitySet="Colaborador" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OportunidadNegocio_Colaborador" Association="Self.FK_OportunidadNegocio_Colaborador">
+            <End Role="Colaborador" EntitySet="Colaborador" />
+            <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OportunidadNegocio_Cuenta" Association="Self.FK_OportunidadNegocio_Cuenta">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OportunidadNegocio_Producto" Association="Self.FK_OportunidadNegocio_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Propuesta_OportunidadNegocio" Association="Self.FK_Propuesta_OportunidadNegocio">
+            <End Role="OportunidadNegocio" EntitySet="OportunidadNegocio" />
+            <End Role="Propuesta" EntitySet="Propuesta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Perfil" Association="Self.FK_Usuario_Perfil">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_TipoProducto1" Association="Self.FK_Producto_TipoProducto1">
+            <End Role="TipoProducto" EntitySet="TipoProducto" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="ColaboradorACargo" Association="Self.ColaboradorACargo">
+            <End Role="Colaborador" EntitySet="Colaborador" />
+            <End Role="Colaborador1" EntitySet="Colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="ContactoCuenta" Association="Self.ContactoCuenta">
+            <End Role="Contacto" EntitySet="Contacto" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="PerfilAplicacion" Association="Self.PerfilAplicacion">
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+            <End Role="Perfil" EntitySet="Perfil" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CRMModelStoreContainer" CdmEntityContainer="CRMEntities3">
+          <EntitySetMapping Name="Actividad">
+            <EntityTypeMapping TypeName="CRMModel.Actividad">
+              <MappingFragment StoreEntitySet="Actividad">
+                <ScalarProperty Name="idActividad" ColumnName="idActividad" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="idCuenta" ColumnName="idCuenta" />
+                <ScalarProperty Name="asunto" ColumnName="asunto" />
+                <ScalarProperty Name="idObjetivo" ColumnName="idObjetivo" />
+                <ScalarProperty Name="idPrioridad" ColumnName="idPrioridad" />
+                <ScalarProperty Name="idTipoActividad" ColumnName="idTipoActividad" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
+                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+                <ScalarProperty Name="fechaFinal" ColumnName="fechaFinal" />
+                <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
+                <ScalarProperty Name="horaFin" ColumnName="horaFin" />
+                <ScalarProperty Name="tiempoReal" ColumnName="tiempoReal" />
+                <ScalarProperty Name="alerta" ColumnName="alerta" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="resultado" ColumnName="resultado" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Aplicacion">
+            <EntityTypeMapping TypeName="CRMModel.Aplicacion">
+              <MappingFragment StoreEntitySet="Aplicacion">
+                <ScalarProperty Name="idAplicacion" ColumnName="idAplicacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cargo">
+            <EntityTypeMapping TypeName="CRMModel.Cargo">
+              <MappingFragment StoreEntitySet="Cargo">
+                <ScalarProperty Name="idCargo" ColumnName="idCargo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ciudad">
+            <EntityTypeMapping TypeName="CRMModel.Ciudad">
+              <MappingFragment StoreEntitySet="Ciudad">
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idPais" ColumnName="idPais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Colaborador">
+            <EntityTypeMapping TypeName="CRMModel.Colaborador">
+              <MappingFragment StoreEntitySet="Colaborador">
+                <ScalarProperty Name="idColaborador" ColumnName="idColaborador" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="idCargo" ColumnName="idCargo" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="nroDocumento" ColumnName="nroDocumento" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacto">
+            <EntityTypeMapping TypeName="CRMModel.Contacto">
+              <MappingFragment StoreEntitySet="Contacto">
+                <ScalarProperty Name="idContacto" ColumnName="idContacto" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="estadoCivil" ColumnName="estadoCivil" />
+                <ScalarProperty Name="idCargo" ColumnName="idCargo" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cuenta">
+            <EntityTypeMapping TypeName="CRMModel.Cuenta">
+              <MappingFragment StoreEntitySet="Cuenta">
+                <ScalarProperty Name="idCuenta" ColumnName="idCuenta" />
+                <ScalarProperty Name="tipoCuenta" ColumnName="tipoCuenta" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="nroDocumento" ColumnName="nroDocumento" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="sitioWeb" ColumnName="sitioWeb" />
+                <ScalarProperty Name="rubro" ColumnName="rubro" />
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+                <ScalarProperty Name="idColaboradorAsignado" ColumnName="idColaboradorAsignado" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresa">
+            <EntityTypeMapping TypeName="CRMModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="web" ColumnName="web" />
+                <ScalarProperty Name="resumenEjectutivo" ColumnName="resumenEjectutivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modulo">
+            <EntityTypeMapping TypeName="CRMModel.Modulo">
+              <MappingFragment StoreEntitySet="Modulo">
+                <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Objetivo">
+            <EntityTypeMapping TypeName="CRMModel.Objetivo">
+              <MappingFragment StoreEntitySet="Objetivo">
+                <ScalarProperty Name="idObjetivo" ColumnName="idObjetivo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OportunidadNegocio">
+            <EntityTypeMapping TypeName="CRMModel.OportunidadNegocio">
+              <MappingFragment StoreEntitySet="OportunidadNegocio">
+                <ScalarProperty Name="idOportunidad" ColumnName="idOportunidad" />
+                <ScalarProperty Name="necesidadCuenta" ColumnName="necesidadCuenta" />
+                <ScalarProperty Name="presupuesto" ColumnName="presupuesto" />
+                <ScalarProperty Name="TiempoTomaDecision" ColumnName="TiempoTomaDecision" />
+                <ScalarProperty Name="idEncargadoTomaDecision" ColumnName="idEncargadoTomaDecision" />
+                <ScalarProperty Name="idCuenta" ColumnName="idCuenta" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="CRMModel.Pais">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="idPais" ColumnName="idPais" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perfil">
+            <EntityTypeMapping TypeName="CRMModel.Perfil">
+              <MappingFragment StoreEntitySet="Perfil">
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prioridad">
+            <EntityTypeMapping TypeName="CRMModel.Prioridad">
+              <MappingFragment StoreEntitySet="Prioridad">
+                <ScalarProperty Name="idPrioridad" ColumnName="idPrioridad" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="CRMModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Propuesta">
+            <EntityTypeMapping TypeName="CRMModel.Propuesta">
+              <MappingFragment StoreEntitySet="Propuesta">
+                <ScalarProperty Name="idPropuesta" ColumnName="idPropuesta" />
+                <ScalarProperty Name="idOpurtunidadNegocio" ColumnName="idOpurtunidadNegocio" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="nroPropuesta" ColumnName="nroPropuesta" />
+                <ScalarProperty Name="alcancePropuesta" ColumnName="alcancePropuesta" />
+                <ScalarProperty Name="incluyeCapacitacion" ColumnName="incluyeCapacitacion" />
+                <ScalarProperty Name="incluyeInstalacion" ColumnName="incluyeInstalacion" />
+                <ScalarProperty Name="incluyeSoporte" ColumnName="incluyeSoporte" />
+                <ScalarProperty Name="conFactura" ColumnName="conFactura" />
+                <ScalarProperty Name="tiempoImplementacion" ColumnName="tiempoImplementacion" />
+                <ScalarProperty Name="CostoImplementacion" ColumnName="CostoImplementacion" />
+                <ScalarProperty Name="FormaPago" ColumnName="FormaPago" />
+                <ScalarProperty Name="Ganancia" ColumnName="Ganancia" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoActividad">
+            <EntityTypeMapping TypeName="CRMModel.TipoActividad">
+              <MappingFragment StoreEntitySet="TipoActividad">
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoProducto">
+            <EntityTypeMapping TypeName="CRMModel.TipoProducto">
+              <MappingFragment StoreEntitySet="TipoProducto">
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="CRMModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ColaboradorACargo" TypeName="CRMModel.ColaboradorACargo" StoreEntitySet="ColaboradorACargo">
+            <EndProperty Name="Colaborador">
+              <ScalarProperty Name="idColaborador" ColumnName="idColaborador" />
+            </EndProperty>
+            <EndProperty Name="Colaborador1">
+              <ScalarProperty Name="idColaborador" ColumnName="idColaboradorAsignado" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ContactoCuenta" TypeName="CRMModel.ContactoCuenta" StoreEntitySet="ContactoCuenta">
+            <EndProperty Name="Contacto">
+              <ScalarProperty Name="idContacto" ColumnName="idContacto" />
+            </EndProperty>
+            <EndProperty Name="Cuenta">
+              <ScalarProperty Name="idCuenta" ColumnName="idCuenta" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PerfilAplicacion" TypeName="CRMModel.PerfilAplicacion" StoreEntitySet="PerfilAplicacion">
+            <EndProperty Name="Aplicacion">
+              <ScalarProperty Name="idAplicacion" ColumnName="idAplicacion" />
+            </EndProperty>
+            <EndProperty Name="Perfil">
+              <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,34 @@
+﻿@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "grid";
+        settings.CallbackRouteValues = new { Controller = "Paises", Action = "MasterDetailMasterPartial" };
+        settings.Width = Unit.Percentage(100);
+
+        settings.KeyFieldName = "idPais";
+        settings.Columns.Add("nombrePais", "Pais");
+
+
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+        settings.SettingsDetail.ShowDetailRow = true;
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Paises", Action = "Create" };
+
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Paises", Action = "Delete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+        settings.Width = Unit.Percentage(100);
+        settings.Settings.ShowFilterRow = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterBar = GridViewStatusBarMode.Visible;
+        settings.Settings.ShowFooter = true;
+        settings.SettingsSearchPanel.Visible = true;
+
+    
+
+        settings.SetDetailRowTemplateContent(c =>
+        {
+
+            Html.RenderAction("MasterDetailDetailPartial", new { idPais = DataBinder.Eval(c.DataItem, "idPais") });
+        });
+   
+    }).Bind(Model).GetHtml()

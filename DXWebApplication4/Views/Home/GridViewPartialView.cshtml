@@ -1,0 +1,47 @@
+@{
+    var grid = Html.DevExpress().GridView(
+        settings =>
+        {
+            settings.Name = "Home";
+            settings.KeyFieldName = "idCiudad";
+            settings.CallbackRouteValues = new { Controller = "Home", Action = "GridViewPartialView" };
+            settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Home", Action = "Create" };
+            settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Home", Action = "EditFormTemplateDeletePartial" };
+            settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+            settings.SettingsBehavior.ConfirmDelete = true;
+            settings.Width = Unit.Percentage(100);
+            settings.Settings.ShowFilterRow = true;
+            settings.Settings.ShowGroupPanel = true;
+            settings.Settings.ShowFilterBar = GridViewStatusBarMode.Visible;
+            settings.Settings.ShowFooter = true;
+            settings.SettingsSearchPanel.Visible = true;
+            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            settings.SettingsPager.PageSize = 50;
+            settings.ControlStyle.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(0);
+            settings.ControlStyle.Border.BorderWidth = System.Web.UI.WebControls.Unit.Pixel(0);
+            settings.ControlStyle.BorderBottom.BorderWidth = System.Web.UI.WebControls.Unit.Pixel(1);
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowNewButton = true;
+            settings.CommandColumn.ShowDeleteButton = true;
+            settings.CommandColumn.ShowEditButton = true;
+
+            settings.Columns.Add("nombre");
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "idPais";
+                column.Caption = "nombrePais";
+                column.EditorProperties().ComboBox(p =>
+                {
+                    p.TextField = "nombrePais";
+                    p.ValueField = "idPais";
+                    p.DataSource = DXWebApplication4.Models.NorthwindDataProvider.GetPaises();
+                });
+            });
+
+        });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

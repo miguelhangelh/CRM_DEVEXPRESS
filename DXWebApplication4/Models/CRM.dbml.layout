@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="CRM">
+  <DataContextMoniker Name="/CRMDataContext" />
+  <nestedChildShapes>
+    <classShape Id="94cdc997-ae51-4a6a-9836-ecafcd365716" absoluteBounds="3.5, 0.875, 2, 1.3862939453124998">
+      <DataClassMoniker Name="/CRMDataContext/Ciudad" />
+      <nestedChildShapes>
+        <elementListCompartment Id="72cd71d3-d885-40fa-964b-66cc6059a754" absoluteBounds="3.515, 1.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="01dd98ab-3374-4d2e-9169-aa9cf282d81d" absoluteBounds="0.75, 1, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/CRMDataContext/Pais" />
+      <nestedChildShapes>
+        <elementListCompartment Id="682f9329-d9be-48d4-a948-a14520d90e40" absoluteBounds="0.765, 1.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 1.59699625651042); (3.5 : 1.59699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CRMDataContext/Pais/Pais_Ciudad" />
+      <nodes>
+        <classShapeMoniker Id="01dd98ab-3374-4d2e-9169-aa9cf282d81d" />
+        <classShapeMoniker Id="94cdc997-ae51-4a6a-9836-ecafcd365716" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="965de9d1-5313-4b03-a0ee-ff396e4be69b" absoluteBounds="6.5, 2, 2, 2.347801106770834">
+      <DataClassMoniker Name="/CRMDataContext/Contacto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="50075450-7053-4d21-b12a-5163878ea370" absoluteBounds="6.515, 2.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3d830328-3fea-4e90-b3a4-5db1ee3e4b16" absoluteBounds="6.625, 5.125, 2, 2.9247054036458326">
+      <DataClassMoniker Name="/CRMDataContext/Cuenta" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d41468f7-9207-4c5a-ba95-1d649dd1dc96" absoluteBounds="6.64, 5.585, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.84375 : 2.2612939453125); (3.84375 : 6.77809895833333); (6.625 : 6.77809895833333)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CRMDataContext/Ciudad/Ciudad_Cuenta" />
+      <nodes>
+        <classShapeMoniker Id="94cdc997-ae51-4a6a-9836-ecafcd365716" />
+        <classShapeMoniker Id="3d830328-3fea-4e90-b3a4-5db1ee3e4b16" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="6a205d6a-22ac-4e34-be28-f743dfceac70" absoluteBounds="4.25, 4.25, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/CRMDataContext/ContactoCuenta" />
+      <nestedChildShapes>
+        <elementListCompartment Id="99ebe859-8462-473a-83f4-22e8a0fcea10" absoluteBounds="4.265, 4.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.5 : 4.34780110677083); (7.5 : 4.67048513604774); (6.25 : 4.67048513604774)]" fixedFrom="Algorithm" fixedTo="Caller">
+      <AssociationMoniker Name="/CRMDataContext/Contacto/Contacto_ContactoCuenta" />
+      <nodes>
+        <classShapeMoniker Id="965de9d1-5313-4b03-a0ee-ff396e4be69b" />
+        <classShapeMoniker Id="6a205d6a-22ac-4e34-be28-f743dfceac70" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.625 : 5.125); (7.625 : 4.96195177669271); (6.25 : 4.96195177669271)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CRMDataContext/Cuenta/Cuenta_ContactoCuenta" />
+      <nodes>
+        <classShapeMoniker Id="3d830328-3fea-4e90-b3a4-5db1ee3e4b16" />
+        <classShapeMoniker Id="6a205d6a-22ac-4e34-be28-f743dfceac70" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
